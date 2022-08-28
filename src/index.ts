@@ -1,16 +1,22 @@
 import express from "express";
 
+import "dotenv/config";
+
 // connect to db
-import "./db/mongoose";
 
 const app = express();
-const cors = require("cors");
-require("dotenv").config();
 
+import cors from "cors";
+app.use(cors());
+import "./db/mongoose";
 const port = process.env.PORT || "8080";
 
-app.use(cors());
-
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 // app.use('/', rou)
 
 app.listen(port, () => {

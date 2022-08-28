@@ -21,6 +21,4 @@ const foodPlaceSchema = new mongoose.Schema(
   }
 );
 
-const Task = mongoose.model("FoodPlace", foodPlaceSchema);
-
-module.exports = Task;
+export const Task = mongoose.model("FoodPlace", foodPlaceSchema);

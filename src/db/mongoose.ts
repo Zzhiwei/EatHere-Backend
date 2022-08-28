@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const url = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cs3219.znysiko.mongodb.net/?retryWrites=true&w=majority`;
+console.log({ url: process.env.MONGODB_URI });
+const url = process.env.MONGODB_URI;
 
 console.log("connecting to", url);
 mongoose
