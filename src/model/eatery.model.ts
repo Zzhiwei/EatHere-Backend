@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
-// enum priceRange = {
-// }
-
-const foodPlaceSchema = new mongoose.Schema(
+const eaterySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,14 +8,16 @@ const foodPlaceSchema = new mongoose.Schema(
       trim: true,
     },
     address: {
-      type: Boolean,
+      type: String,
       require: true,
       trim: true,
     },
   },
+  // mongoose schema options
+  // https://mongoosejs.com/docs/guide.html#options
   {
     timestamps: true,
   }
 );
 
-export const Task = mongoose.model("FoodPlace", foodPlaceSchema);
+export const Eatery = mongoose.model("Eatery", eaterySchema);

@@ -1,6 +1,7 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 
-import "dotenv/config";
+import { config } from "dotenv";
+config();
 
 // connect to db
 
@@ -9,6 +10,9 @@ const app = express();
 import cors from "cors";
 app.use(cors());
 import "./db/mongoose";
+import { eateryRouter } from "./routes/eatery.route";
+import { errorHandler } from "./middleware/errorHandler";
+import { invalidPathHandler } from "./middleware/invalidPathHandler";
 const port = process.env.PORT || "8080";
 
 app.use(express.json());
@@ -18,6 +22,13 @@ app.use(
   })
 );
 // app.use('/', rou)
+
+app.use("/eatery", eateryRouter);
+
+app.use(invalidPathHandler);
+
+// this has to be the last loaded middleware.
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
