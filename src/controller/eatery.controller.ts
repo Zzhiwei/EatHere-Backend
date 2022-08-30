@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { nextTick } from "process";
 
 import { Eatery } from "../model/eatery.model";
 import { HttpStatusCode } from "../utils/HttpsStatusCode";
