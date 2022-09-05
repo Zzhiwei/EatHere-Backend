@@ -47,7 +47,6 @@ describe('test eatery API', () => {
     expect(eatery2.address).toBe(initialEateries[1].address)
   }, 100000)
 
-  // POST request for creating new resource
   test('eatery should be added', async () => {
     const newEatery = {
       name: 'Ban mian store',
@@ -66,7 +65,6 @@ describe('test eatery API', () => {
     expect(receivedNewEatery.address).toBe(newEatery.address)
   }, 100000)
 
-  // PUT for updating existing resource
   test('eatery should be updated', async () => {
     const newEatery = {
       name: 'Ban mian store',
@@ -102,6 +100,29 @@ describe('test eatery API', () => {
 
     response = await api.get('/eatery/all')
     expect(response.body.length).toBe(1)
+  }, 100000)
+
+  it('should give error response if cannot find eatery', async () => {
+    const response = await api.delete(`/eatery/delete/432714983`).expect(400)
+    expect(response.body.error).toBe(
+      'malformed id, please check your object or id'
+    )
+  }, 100000)
+
+  test('eatery should not be added if no name', async () => {
+    const newEatery = {
+      address: 'AMK hub',
+    }
+
+    const response = await api
+      .post('/eatery/create')
+      .send(newEatery)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(response.body.error).toBe(
+      'incorrect fields in creating or updating object'
+    )
   }, 100000)
 
   afterAll(() => {
