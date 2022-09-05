@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import config from '../utils/config'
 import logger from '../utils/logger'
 
-const url = process.env.MONGODB_URI
+const url = config.MONGODB_URI
 
 logger.info('connecting to', url)
 mongoose

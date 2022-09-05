@@ -3,8 +3,10 @@ import express, { Request, Response } from 'express'
 import './db/mongoose'
 import { errorHandler } from './middleware/errorHandler'
 import { invalidPathHandler } from './middleware/invalidPathHandler'
-import { eateryRouter } from './routes/eatery.route'
+import { eateryBaseUrl, eateryRouter } from './routes/eatery.route'
+import logger from './utils/logger'
 
+logger.info(`starting app in ${process.env.NODE_ENV} mode`)
 const app = express()
 
 app.use(cors())
@@ -16,10 +18,10 @@ app.use(
 )
 
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('<h1>Hello Express!</h1>')
+  res.status(200).send('<h1>Welcome to eatery backend!</h1>')
 })
 
-app.use('/eatery', eateryRouter)
+app.use(eateryBaseUrl, eateryRouter)
 
 app.use(invalidPathHandler)
 

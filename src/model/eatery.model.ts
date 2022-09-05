@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const eaterySchema = new mongoose.Schema(
   {
@@ -18,6 +18,6 @@ const eaterySchema = new mongoose.Schema(
   {
     timestamps: true,
   }
-);
+)
 
-export const Eatery = mongoose.model("Eatery", eaterySchema);
+export const Eatery = mongoose.model('Eatery', eaterySchema)

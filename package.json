@@ -4,9 +4,10 @@
   "description": "",
   "scripts": {
     "build": "npx tsc",
-    "start": "cross-env NODE_ENV=PROD node dist/index.js",
-    "dev": "cross-env NODE_ENV=DEV nodemon src/index.ts",
-    "test": "jest"
+    "start": "cross-env NODE_ENV=prod node dist/index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon src/index.ts",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
