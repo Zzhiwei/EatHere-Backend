@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
+import logger from '../utils/logger'
 
-console.log({ url: process.env.MONGODB_URI });
-const url = process.env.MONGODB_URI;
+const url = process.env.MONGODB_URI
 
-console.log("connecting to", url);
+logger.info('connecting to', url)
 mongoose
-  .connect(url || "")
+  .connect(url || '')
   .then(() => {
-    console.log("connected to MongoDB");
+    logger.info('connected to MongoDB')
   })
   .catch((error) => {
-    console.log("error connecting to MongoDB:", error.message);
-  });
+    logger.info('error connecting to MongoDB:', error.message)
+  })
