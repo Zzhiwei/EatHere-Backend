@@ -51,3 +51,4 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           printf 'n' | eb init eatbackend_prod --region ap-southeast-1
+          eb deploy
