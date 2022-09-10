@@ -6,12 +6,11 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
 
     strategy:
       matrix:
