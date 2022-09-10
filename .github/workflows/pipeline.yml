@@ -31,11 +31,10 @@ jobs:
       - name: install dependencies
         run: npm install
 
-      # - name: run tests
-      #   run: npm test
-      # - run: npm run build --if-present
+      - name: Run tests
+        run: npm test
 
-      - name: build
+      - name: Build
         run: npm run build
 
       - name: Install Python 3.9
