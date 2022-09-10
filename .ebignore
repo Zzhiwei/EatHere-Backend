@@ -2,3 +2,10 @@ node_modules
 src
 __test__
 .github
+coverage
+
+.prettierrc.json
+.prettierignore
+.gitignore
+tsconfig.json
+jest.config.ts
