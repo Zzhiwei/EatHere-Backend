@@ -6,11 +6,12 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TEST_MONGODB_URI: mongodb+srv://CS3219:CS3219@cluster0.hraprmb.mongodb.net/?retryWrites=true&w=majority
 
     strategy:
       matrix:
