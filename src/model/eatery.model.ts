@@ -9,8 +9,13 @@ const eaterySchema = new mongoose.Schema(
     },
     address: {
       type: String,
-      require: true,
+      required: true,
       trim: true,
+    },
+    priceRange: {
+      type: String,
+      enum: ['CHEAP', 'AVERAGE', 'EXPENSIVE'],
+      required: true,
     },
   },
   // mongoose schema options

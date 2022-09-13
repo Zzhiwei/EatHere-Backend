@@ -8,7 +8,7 @@ export const errorHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
-  logger.error(error)
+  logger.error({ error })
   // define custom error handling here if any
   let status
   let message
@@ -16,7 +16,7 @@ export const errorHandler = (
   switch (error.name) {
     case 'ValidationError':
       status = 400
-      message = 'incorrect fields in creating or updating object'
+      message = 'missing field or incorrect field type entered'
       break
     case 'EateryNotFoundError':
       status = 400
@@ -28,8 +28,7 @@ export const errorHandler = (
       break
     default:
       status = 400
-      message =
-        'Something has gone wrong, please send us an email at e0544531@u.nus.edu '
+      message = 'Bad request: Please check your request'
   }
   res.status(status).json({
     error: message,

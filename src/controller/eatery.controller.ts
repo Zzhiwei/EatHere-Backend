@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express'
 
-import { Eatery } from "../model/eatery.model";
-import { HttpStatusCode } from "../utils/HttpsStatusCode";
+import { Eatery } from '../model/eatery.model'
+import { HttpStatusCode } from '../utils/HttpsStatusCode'
 
 //// create
 export const createEatery = async (
@@ -10,13 +10,13 @@ export const createEatery = async (
   next: NextFunction
 ) => {
   try {
-    const eatery = new Eatery(req.body);
-    await eatery.save();
-    res.status(HttpStatusCode.CREATED).json({ eatery });
+    const eatery = new Eatery(req.body)
+    await eatery.save()
+    res.status(HttpStatusCode.CREATED).json(eatery)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 //// get
 export const getEatery = async (
@@ -25,16 +25,19 @@ export const getEatery = async (
   next: NextFunction
 ) => {
   try {
-    const eatery = await Eatery.findById(req.params.id);
+    const eatery = await Eatery.findById(req.params.id)
+    console.log({ eatery })
     if (eatery) {
-      res.json(eatery);
+      res.json(eatery)
     } else {
-      res.status(HttpStatusCode.NOT_FOUND).end();
+      const err = new Error()
+      err.name = 'EateryNotFoundError'
+      throw err
     }
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 export const getAllEateries = async (
   req: Request,
@@ -42,12 +45,12 @@ export const getAllEateries = async (
   next: NextFunction
 ) => {
   try {
-    const eateries = await Eatery.find({});
-    res.json(eateries);
+    const eateries = await Eatery.find({}).sort({ createdAt: 'desc' })
+    res.json(eateries)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 //// update
 export const updateEatery = async (
@@ -56,25 +59,25 @@ export const updateEatery = async (
   next: NextFunction
 ) => {
   try {
-    const { name, address } = req.body;
+    const { name, address, priceRange } = req.body
 
-    const updateEatery = await Eatery.findByIdAndUpdate(
+    const updatedEatery = await Eatery.findByIdAndUpdate(
       req.params.id,
-      { name, address },
+      { name, address, priceRange },
       { new: true, runValidators: true }
-    );
+    )
 
-    if (!updateEatery) {
-      const err = new Error();
-      err.name = "EateryNotFoundError";
-      throw err;
+    if (!updatedEatery) {
+      const err = new Error()
+      err.name = 'EateryNotFoundError'
+      throw err
     }
 
-    res.json(updateEatery);
+    res.json(updatedEatery)
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 //// delete
 export const deleteEatery = async (
@@ -83,16 +86,16 @@ export const deleteEatery = async (
   next: NextFunction
 ) => {
   try {
-    const deletedEatery = await Eatery.findByIdAndRemove(req.params.id);
+    const deletedEatery = await Eatery.findByIdAndRemove(req.params.id)
 
     if (!deletedEatery) {
-      const err = new Error();
-      err.name = "EateryNotFoundError";
-      throw err;
+      const err = new Error()
+      err.name = 'EateryNotFoundError'
+      throw err
     }
 
-    res.status(HttpStatusCode.NO_CONTENT).end();
+    res.status(HttpStatusCode.OK).json('DELETED')
   } catch (error: any) {
-    next(error);
+    next(error)
   }
-};
+}
