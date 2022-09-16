@@ -47,6 +47,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install awsebcli
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env          
+          cat .env
+
       - name: Deploy to Elastic Beanstalk
         run: |
           printf 'n' | eb init eatbackend_prod --region ap-southeast-1
