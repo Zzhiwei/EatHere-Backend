@@ -50,7 +50,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env
-          echo MONGODB_URI=${{ secrets.MONGODB_URI }} >> .env          
+          echo "MONGODB_URI=$MONGODB_URI" >> .env          
           cat .env
 
       - name: Deploy to Elastic Beanstalk
