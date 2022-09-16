@@ -26,7 +26,6 @@ export const getEatery = async (
 ) => {
   try {
     const eatery = await Eatery.findById(req.params.id)
-    console.log({ eatery })
     if (eatery) {
       res.json(eatery)
     } else {

@@ -8,7 +8,7 @@ export const errorHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
-  logger.error({ error })
+  logger.error({ error: error.name || error })
   // define custom error handling here if any
   let status
   let message
