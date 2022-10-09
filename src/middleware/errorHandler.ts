@@ -26,6 +26,14 @@ export const errorHandler = (
       status = 400
       message = 'malformed id, please check your object or id'
       break
+    case 'JsonWebTokenError':
+      status = 401
+      message = 'invalid token'
+      break
+    case 'TokenExpiredError':
+      status = 401
+      message = 'token expired'
+      break
     default:
       status = 400
       message = 'Bad request: Please check your request'

@@ -17,6 +17,10 @@ const eaterySchema = new mongoose.Schema(
       enum: ['CHEAP', 'AVERAGE', 'EXPENSIVE'],
       required: true,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   // mongoose schema options
   // https://mongoosejs.com/docs/guide.html#options

@@ -1,8 +1,10 @@
 import cors from 'cors'
 import express, { Request, Response } from 'express'
+
 import './db/mongoose'
 import { errorHandler } from './middleware/errorHandler'
 import { invalidPathHandler } from './middleware/invalidPathHandler'
+import { authBaseUrl, authRouter } from './routes/auth.route'
 import { eateryBaseUrl, eateryRouter } from './routes/eatery.route'
 import logger from './utils/logger'
 
@@ -21,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
   res.status(200).send('<h1>Welcome333 to eatery backend!</h1>')
 })
 
+app.use(authBaseUrl, authRouter)
 app.use(eateryBaseUrl, eateryRouter)
 
 app.use(invalidPathHandler)

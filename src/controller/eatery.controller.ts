@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import { Eatery } from '../model/eatery.model'
+import { User } from '../model/user.model'
 import { HttpStatusCode } from '../utils/HttpsStatusCode'
 
 //// create
@@ -10,9 +11,20 @@ export const createEatery = async (
   next: NextFunction
 ) => {
   try {
-    const eatery = new Eatery(req.body)
-    await eatery.save()
-    res.status(HttpStatusCode.CREATED).json(eatery)
+    const { name, address, priceRange, userId } = req.body
+    const user = await User.findById(userId)
+    if (!user) {
+      return res.status(400).json({
+        error: 'user id is not provided',
+      })
+    }
+
+    const eatery = new Eatery({ name, address, priceRange, user: user?._id })
+    const savedEatery = await eatery.save()
+    user.eateries.concat(savedEatery._id as any)
+    await user.save()
+
+    res.status(HttpStatusCode.CREATED).json(savedEatery)
   } catch (error) {
     next(error)
   }
