@@ -65,7 +65,7 @@ export const getAllEateries = async (
 
 //// update
 export const updateEatery = async (
-  req: Request,
+  req: Request & { user: any },
   res: Response,
   next: NextFunction
 ) => {

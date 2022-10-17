@@ -6,14 +6,17 @@ import {
   getEatery,
   updateEatery,
 } from '../controller/eatery.controller'
+import { ROLE } from '../utils/enum'
+import { authentiticate, authorize } from './auth.route'
 
 export const eateryRouter = Router()
 export const eateryBaseUrl = '/eatery'
 
 eateryRouter.route('/all').get(getAllEateries)
 eateryRouter.route('/:id').get(getEatery)
-// POST request for creating new resource
-eateryRouter.route('/create').post(createEatery)
-// PUT for updating existing resource
-eateryRouter.route('/update/:id').put(updateEatery)
-eateryRouter.route('/delete/:id').delete(deleteEatery)
+eateryRouter.route('/create').post(authorize(), createEatery)
+eateryRouter.route('/update/:id').put(authorize(), updateEatery)
+eateryRouter.route('/delete/:id').delete(authorize([ROLE.ADMIN]), deleteEatery)
+
+// eatery specific authorization middlewares can be written here
+// e.g. authorize only eatery post owners to edit
