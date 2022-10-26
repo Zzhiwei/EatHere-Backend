@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { getOrSetCache } from '../db/redis'
 
 import { Eatery } from '../model/eatery.model'
 import { User } from '../model/user.model'
@@ -56,7 +57,11 @@ export const getAllEateries = async (
   next: NextFunction
 ) => {
   try {
-    const eateries = await Eatery.find({}).sort({ createdAt: 'desc' })
+    const eateries = await getOrSetCache('fullEateryList', async () => {
+      const eateries = await Eatery.find({}).sort({ createdAt: 'desc' })
+      return eateries
+    })
+
     res.json(eateries)
   } catch (error) {
     next(error)

@@ -2,6 +2,7 @@ import cors from 'cors'
 import express, { Request, Response } from 'express'
 
 import './db/mongoose'
+import './db/redis'
 import { errorHandler } from './middleware/errorHandler'
 import { invalidPathHandler } from './middleware/invalidPathHandler'
 import { authBaseUrl, authRouter } from './routes/auth.route'
