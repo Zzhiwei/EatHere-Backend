@@ -8,6 +8,9 @@ import { authBaseUrl, authRouter } from './routes/auth.route'
 import { eateryBaseUrl, eateryRouter } from './routes/eatery.route'
 import logger from './utils/logger'
 
+import axios from 'axios'
+import fetch from 'node-fetch'
+
 logger.info(`starting app in ${process.env.NODE_ENV} mode`)
 const app = express()
 
@@ -19,8 +22,11 @@ app.use(
   })
 )
 
-app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('<h1>Welcome to eatery backend!</h1>')
+app.get('/', async (req: Request, res: Response) => {
+  const ans = await fetch('http://localhost:8003/question/get/all')
+  const json = await ans.json()
+  console.log({ json })
+  res.json({ json })
 })
 
 app.use(authBaseUrl, authRouter)
